@@ -72,19 +72,21 @@
       <!-- <h1>Create Product</h1> -->
       <div class="main">
 
-        <p class="box1">
-          <input type="file" multiple="false" accept="image/*" id="finput" onchange="setImage(event)"/>
-        </p>
-        <p class="box1">
-          <input id="productName" type="text" placeholder="Product Name" />
-        </p>
-        <p class="box1">
-          <textarea name="productdescription" id="productdescription" cols="27" rows="4" placeholder="Product Description"></textarea>
-        </p>
-        <p class="box1">
-          <input id="productprice" type="number" value="Product Price" placeholder="Product Price" />
-        </p>
-        <button id="button" type="button" class="btn btn-secondary mx-3" style="margin-left : 85px!important" onclick="CreateProduct()"> Create Product </button>
+        <form id="form">
+          <p class="box1">
+            <input type="file" multiple="false" accept="image/*" id="finput" onchange="setImage(event)"/>
+          </p>
+          <p class="box1">
+            <input id="productName" type="text" placeholder="Product Name" />
+          </p>
+          <p class="box1">
+            <textarea name="productdescription" id="productdescription" cols="27" rows="4" placeholder="Product Description"></textarea>
+          </p>
+          <p class="box1">
+            <input id="productprice" type="number" value="Product Price" placeholder="Product Price" />
+          </p>
+          <button id="button" type="submit" class="btn btn-secondary mx-3" style="margin-left : 85px!important" onclick="CreateProduct(event)"> Create Product </button>
+        </form>
 
       </div>
       
@@ -125,29 +127,7 @@
    </div>
    
 
-    <!-- modal -->
-    <!-- <div class="modal fade" id="cart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Cart</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <table class="show-cart table">
-            
-          </table>
-          <div>Total price: $<span class="total-cart"></span></div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Order now</button>
-        </div>
-      </div>
-    </div>
-  </div> -->
+
 
     <script>
     var imageURL = '';
@@ -161,29 +141,9 @@
     }
 
     products = {};
-    /*
-    // all the forms input fields...
-    const fInput = document.querySelector('#finput');
-    const nameInput = document.querySelector('#productName');         
-    const descriptionInput = document.querySelector('#productdescription');         
-    const priceInput = document.querySelector('#productprice');
     
-    // add product 
-    const fileDisplay = document.querySelector('#fileDisplay');
-    const nameDisplay = document.querySelector('#nameDisplay');
-    const descriptionDisplay = document.querySelector('#DescriptionDisplay');
-    const priceDisplay = document.querySelector('#priceDisplay');
-    */
-
-    /*
-    //displaying the image...
-    fileDisplay.src = imageURL;
-    nameDisplay.innerHTML = nameInput.value;
-    descriptionDisplay.innerHTML = descriptionInput.value;
-    priceDisplay.innerHTML = priceInput.value;
-    */
     productCount = 0
-    function CreateProduct(){
+    function CreateProduct(even){
         
         document.querySelector(".main2").innerHTML += `<div style="display: inline-block; margin: 1%;">
                                                           <img src=${imageURL} class=${productCount}" style="height:250px;width:200px;object-fit:cover" /> <br>
@@ -197,6 +157,9 @@
                                                         </div>`
 
                                                         productCount++
+
+          even.preventDefault()
+          document.getElementById("form").reset()
 
     }
     let cart_total = 0
@@ -225,7 +188,8 @@
       }else{
         alert("Product is already present in your cart")
       }
-      even.preventDefault()
+
+      
     }
     
     function changePrice(it){
